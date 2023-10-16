@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: webserver
+    namespace: web
+    labels:
+        app: web
+        tag: test
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: web
+            tag: test
+    template:
+        metadata:
+            labels:
+                app: web
+                tag: test
+        spec:
+            containers:
+            -   name: webserver
+                image: web-streamlit:latest
+                imagePullPolicy: Never
+                ports:
+                -   containerPort: 8501
+                    name: ws-c-port
